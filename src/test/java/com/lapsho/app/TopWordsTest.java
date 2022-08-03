@@ -10,7 +10,7 @@ import org.junit.Test;
 public class TopWordsTest
 {
     @Test
-    public void top3_Empty_ShouldReturnEmptyList()
+    public void top3_EmptyInput_ShouldReturnEmptyList()
     {
         String input = "";
         List<String> expected = new ArrayList<>();
@@ -19,7 +19,7 @@ public class TopWordsTest
     }
 
     @Test
-    public void top3_Null_ShouldReturnEmptyList()
+    public void top3_NullInput_ShouldReturnEmptyList()
     {
         String input = null;
         List<String> expected = new ArrayList<>();
@@ -57,6 +57,14 @@ public class TopWordsTest
     }
 
     @Test
+    public void top3_FewApostrophesAtStartMiddleEnd_IgnoreMoreThanOneAtOnce() {
+        String input = " ''abc, ''abc, abc'', ''abc'', ''abc'', ''abc'',ab''c, ab''c";
+        List<String> expected = Arrays.asList("'abc'", "'abc", "ab'");
+
+        assertEquals("top3_ApostrophesAtStartMiddleEnd_PartOfWord", expected, TopWords.top3(input));
+    }
+
+    @Test
     public void top3_Dash_NotPartOfWord() {
         String input = "lance-rack lance-rock lance rack lance rack lance rack";
         List<String> expected = Arrays.asList("lance", "rack", "rock");
@@ -73,7 +81,7 @@ public class TopWordsTest
     }
 
     @Test
-    public void top3_Numbers_NotPartOfWord() {
+    public void top3_NumbersInWord_ShouldBeCut() {
         String input = "lance12 lance lance rack3 rack rock 123 2";
         List<String> expected = Arrays.asList("lance", "rack", "rock");
 
@@ -92,6 +100,30 @@ public class TopWordsTest
     public void top3_TwoWordString_ShouldReturnTwoWordArray() {
         String input = "two word";
         List<String> expected = Arrays.asList("two", "word");
+
+        assertEquals("top3_TwoWordString_ShouldReturnTwoWordArray", expected, TopWords.top3(input));
+    }
+
+    @Test
+    public void top3_WordsWithSameMaxPriority_ShouldBeInResult() {
+        String input = "one one two two tree tree word";
+        List<String> expected = Arrays.asList("one", "two", "tree");
+
+        assertEquals("top3_TwoWordString_ShouldReturnTwoWordArray", expected, TopWords.top3(input));
+    }
+
+    @Test
+    public void top3_TwoWordsSecondInPriorityListButEqualByPriority_ShouldBeInResult() {
+        String input = "one one one one two two two tree tree tree word word";
+        List<String> expected = Arrays.asList("one", "two", "tree");
+
+        assertEquals("top3_TwoWordString_ShouldReturnTwoWordArray", expected, TopWords.top3(input));
+    }
+
+    @Test
+    public void top3_TwoWordsFirstInPriorityListAndEqualByPriority_ShouldBeInResult() {
+        String input = "one one one two two two two tree tree tree tree word word";
+        List<String> expected = Arrays.asList("two", "tree", "one");
 
         assertEquals("top3_TwoWordString_ShouldReturnTwoWordArray", expected, TopWords.top3(input));
     }

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class TopWords
 {
-    private final static String WORD_REGEX = "([']?[A-Za-z]*[']?[A-Za-z]*[']?)";
+    private final static String WORD_REGEX = "([']?[A-Za-z]+[']?[A-Za-z]+[']?)|([']?[A-Za-z]+[']?)";
 
     private final static Pattern WORD_PATTERN = Pattern.compile(WORD_REGEX);
 

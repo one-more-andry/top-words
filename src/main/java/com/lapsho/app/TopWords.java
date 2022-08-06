@@ -51,7 +51,8 @@ public class TopWords
             }
 
             if (samePriorityWords.size() > i) {
-                topWords.addAll(samePriorityWords.subList(0, i - 1));
+                i = (i > 1) ? i - 1 : i;
+                topWords.addAll(samePriorityWords.subList(0, i));
 
             } else {
                 topWords.addAll(samePriorityWords);

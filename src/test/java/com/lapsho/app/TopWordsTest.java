@@ -146,4 +146,14 @@ public class TopWordsTest
 
         assertThat(result, anyOf(equalTo(expectedSequence1), equalTo(expectedSequence2)));
     }
+
+    @Test
+    public void top3_TwoWordsLastInPriorityListResultAndEqualByPriority_ResultShouldIncludeOneOfThem() {
+        String input = "cYAsP wSEm_SBYLExN.cYAsP/Iczkn VdYltE Iczkn:EIM cdv cdv?EIM;Iczkn ctWe_VdYltE:KKLXxuvu EIM ctWe cYAsP,cYAsP.cYAsP-wSEm KKLXxuvu ZmQnsE_Iczkn VdYltE;SBYLExN ZmQnsE-WRMxHI xogizMz!LXHeXC EIM!WRMxHI xogizMz wSEm LXHeXC.xogizMz.VdYltE cdv Iczkn;ZmQnsE Iczkn.xogizMz VdYltE wSEm/cYAsP KKLXxuvu wSEm_xogizMz:cYAsP_LXHeXC:cYAsP SBYLExN.cdv TYANt-LXHeXC ZmQnsE_cdv_TYANt,VdYltE,cdv!Iczkn.TYANt;EIM-ctWe cYAsP cYAsP;WRMxHI cdv wSEm-LXHeXC.VdYltE WRMxHI,xogizMz,sepqTIOS KKLXxuvu Iczkn/SBYLExN EIM LXHeXC!cYAsP wSEm.xogizMz,cYAsP Iczkn-TYANt sepqTIOS cYAsP?VdYltE/cYAsP EIM cYAsP!TYANt;TYANt!Iczkn/ctWe ctWe!wSEm;VdYltE-cdv,EIM LXHeXC;cYAsP EIM wSEm EIM LXHeXC?EIM,SBYLExN Iczkn TYANt!EIM_WRMxHI:VdYltE wSEm/EIM xogizMz:TYANt SBYLExN!Iczkn/wSEm cdv.Iczkn/ctWe,cdv-Iczkn,WRMxHI,cdv WRMxHI_Iczkn VdYltE LXHeXC SBYLExN!EIM!wSEm cYAsP wSEm Iczkn/Iczkn xogizMz wSEm cdv xogizMz xogizMz;SBYLExN ZmQnsE cdv-wSEm wSEm;ZmQnsE_TYANt cYAsP WRMxHI WRMxHI xogizMz sepqTIOS?cYAsP Iczkn ZmQnsE LXHeXC TYANt TYANt_cdv?cdv cYAsP,xogizMz xogizMz EIM?wSEm cdv:cdv_xogizMz Iczkn/LXHeXC EIM LXHeXC/wSEm xogizMz Iczkn/EIM_wSEm-xogizMz!EIM.SBYLExN SBYLExN!xogizMz cYAsP ZmQnsE ZmQnsE.ctWe cYAsP cdv?wSEm,Iczkn Iczkn,xogizMz Iczkn VdYltE VdYltE;wSEm cYAsP cYAsP;cYAsP_SBYLExN.LXHeXC cdv.wSEm LXHeXC VdYltE EIM-SBYLExN WRMxHI-xogizMz wSEm KKLXxuvu sepqTIOS LXHeXC WRMxHI VdYltE:EIM EIM/SBYLExN cdv LXHeXC TYANt:WRMxHI_VdYltE-TYANt xogizMz LXHeXC xogizMz:cYAsP LXHeXC;LXHeXC wSEm_xogizMz/";
+        List<String> expectedSequence1 = Arrays.asList("cyasp", "wsem", "iczkn");
+        List<String> expectedSequence2 = Arrays.asList("cyasp", "wsem", "xogizmz");
+        List<String> result = TopWords.top3(input);
+
+        assertThat(result, anyOf(equalTo(expectedSequence1), equalTo(expectedSequence2)));
+    }
 }

@@ -3,6 +3,9 @@ package com.lapsho.app;
 import static org.junit.Assert.*;
 import java.util.*;
 import org.junit.Test;
+import static org.hamcrest.core.AnyOf.*;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Unit test for simple App.
@@ -50,7 +53,7 @@ public class TopWordsTest
 
     @Test
     public void top3_ApostrophesAtStartMiddleEnd_PartOfWord() {
-        String input = " 'abc, 'abc, abc', 'abc', 'abc', 'abc',ab'c, ab'c";
+        String input = " 'abc, 'abc, 'abc, abc', 'abc', 'abc', 'abc', 'abc',ab'c, ab'c";
         List<String> expected = Arrays.asList("'abc'", "'abc", "ab'c");
 
         assertEquals("top3_ApostrophesAtStartMiddleEnd_PartOfWord", expected, TopWords.top3(input));
@@ -58,8 +61,8 @@ public class TopWordsTest
 
     @Test
     public void top3_FewApostrophesAtStartMiddleEnd_IgnoreMoreThanOneAtOnce() {
-        String input = " ''abc, ''abc, abc'', ''abc'', ''abc'', ''abc'',ab''c, ab''c";
-        List<String> expected = Arrays.asList("'abc'", "'abc", "ab'");
+        String input = "ab''c,  ab''c,  ab''c, ab', ''abc'', ''abc'', abc'', ''abc";
+        List<String> expected = Arrays.asList("ab'", "'c", "'abc'");
 
         assertEquals("top3_ApostrophesAtStartMiddleEnd_PartOfWord", expected, TopWords.top3(input));
     }
@@ -74,8 +77,8 @@ public class TopWordsTest
 
     @Test
     public void top3_SpecialChars_NotPartOfWord() {
-        String input = "lance#-rack? @lance! rock _lance &rack* $lance rac#k lance\" -rack+";
-        List<String> expected = Arrays.asList("lance", "rack", "rock");
+        String input = "lance#-rack? @lance! rock _lance &rack* $lance rac#k lance\" -rack+ k";
+        List<String> expected = Arrays.asList("lance", "rack", "k");
 
         assertEquals("top3_SpecialChars_NotPartOfWord", expected, TopWords.top3(input));
     }
@@ -106,25 +109,41 @@ public class TopWordsTest
 
     @Test
     public void top3_WordsWithSameMaxPriority_ShouldBeInResult() {
-        String input = "one one two two tree tree word";
-        List<String> expected = Arrays.asList("one", "two", "tree");
+        String input = "one one two two three three word";
+        List<String> expectedSequence1 = Arrays.asList("one", "two", "three");
+        List<String> expectedSequence2 = Arrays.asList("two", "one", "three");
+        List<String> expectedSequence3 = Arrays.asList("two", "three", "one");
+        List<String> expectedSequence4 = Arrays.asList("one", "three", "two");
+        List<String> expectedSequence5 = Arrays.asList("three", "one", "two");
+        List<String> expectedSequence6 = Arrays.asList("three", "two", "one");
 
-        assertEquals("top3_TwoWordString_ShouldReturnTwoWordArray", expected, TopWords.top3(input));
+        assertThat(TopWords.top3(input), anyOf(
+                equalTo(expectedSequence1),
+                equalTo(expectedSequence2),
+                equalTo(expectedSequence3),
+                equalTo(expectedSequence4),
+                equalTo(expectedSequence5),
+                equalTo(expectedSequence6)
+                ));
     }
 
     @Test
     public void top3_TwoWordsSecondInPriorityListButEqualByPriority_ShouldBeInResult() {
         String input = "one one one one two two two tree tree tree word word";
-        List<String> expected = Arrays.asList("one", "two", "tree");
+        List<String> expectedSequence1 = Arrays.asList("one", "two", "tree");
+        List<String> expectedSequence2 = Arrays.asList("one", "tree", "two");
+        List<String> result = TopWords.top3(input);
 
-        assertEquals("top3_TwoWordString_ShouldReturnTwoWordArray", expected, TopWords.top3(input));
+        assertThat(result, anyOf(equalTo(expectedSequence1), equalTo(expectedSequence2)));
     }
 
     @Test
     public void top3_TwoWordsFirstInPriorityListAndEqualByPriority_ShouldBeInResult() {
         String input = "one one one two two two two tree tree tree tree word word";
-        List<String> expected = Arrays.asList("two", "tree", "one");
+        List<String> expectedSequence1 = Arrays.asList( "two", "tree", "one");
+        List<String> expectedSequence2 = Arrays.asList("tree", "two", "one");
+        List<String> result = TopWords.top3(input);
 
-        assertEquals("top3_TwoWordString_ShouldReturnTwoWordArray", expected, TopWords.top3(input));
+        assertThat(result, anyOf(equalTo(expectedSequence1), equalTo(expectedSequence2)));
     }
 }

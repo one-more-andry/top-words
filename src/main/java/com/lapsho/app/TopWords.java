@@ -45,6 +45,7 @@ public class TopWords
                 topWords.addAll(samePriorityWords);
                 prioritizedWords.keySet().removeAll(samePriorityWords);
                 i -= samePriorityWords.size();
+                i++;
 
                 continue;
             }

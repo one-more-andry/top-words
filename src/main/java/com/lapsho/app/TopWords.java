@@ -15,6 +15,10 @@ public class TopWords
 
     public static List<String> top3(String s) {
         List<String> topWords = new ArrayList<>();
+
+        if ( s == null || s.equals("") ) {
+            return topWords;
+        }
         Map<String, Integer> prioritizedWords = new HashMap<>();
         Matcher wordMatcher = WORD_PATTERN.matcher(s);
 

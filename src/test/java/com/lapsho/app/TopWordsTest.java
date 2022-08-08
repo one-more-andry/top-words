@@ -164,12 +164,33 @@ public class TopWordsTest
     }
 
     @Test
-    public void top3_TwoWordsLastInPriorityListResultAndEqualByPriority_ResultShouldIncludeOneOfThem() {
+    public void top3_TwoWordsThirdInPriorityList_ResultShouldIncludeOneOfThem() {
         String input = "cYAsP wSEm_SBYLExN.cYAsP/Iczkn VdYltE Iczkn:EIM cdv cdv?EIM;Iczkn ctWe_VdYltE:KKLXxuvu EIM ctWe cYAsP,cYAsP.cYAsP-wSEm KKLXxuvu ZmQnsE_Iczkn VdYltE;SBYLExN ZmQnsE-WRMxHI xogizMz!LXHeXC EIM!WRMxHI xogizMz wSEm LXHeXC.xogizMz.VdYltE cdv Iczkn;ZmQnsE Iczkn.xogizMz VdYltE wSEm/cYAsP KKLXxuvu wSEm_xogizMz:cYAsP_LXHeXC:cYAsP SBYLExN.cdv TYANt-LXHeXC ZmQnsE_cdv_TYANt,VdYltE,cdv!Iczkn.TYANt;EIM-ctWe cYAsP cYAsP;WRMxHI cdv wSEm-LXHeXC.VdYltE WRMxHI,xogizMz,sepqTIOS KKLXxuvu Iczkn/SBYLExN EIM LXHeXC!cYAsP wSEm.xogizMz,cYAsP Iczkn-TYANt sepqTIOS cYAsP?VdYltE/cYAsP EIM cYAsP!TYANt;TYANt!Iczkn/ctWe ctWe!wSEm;VdYltE-cdv,EIM LXHeXC;cYAsP EIM wSEm EIM LXHeXC?EIM,SBYLExN Iczkn TYANt!EIM_WRMxHI:VdYltE wSEm/EIM xogizMz:TYANt SBYLExN!Iczkn/wSEm cdv.Iczkn/ctWe,cdv-Iczkn,WRMxHI,cdv WRMxHI_Iczkn VdYltE LXHeXC SBYLExN!EIM!wSEm cYAsP wSEm Iczkn/Iczkn xogizMz wSEm cdv xogizMz xogizMz;SBYLExN ZmQnsE cdv-wSEm wSEm;ZmQnsE_TYANt cYAsP WRMxHI WRMxHI xogizMz sepqTIOS?cYAsP Iczkn ZmQnsE LXHeXC TYANt TYANt_cdv?cdv cYAsP,xogizMz xogizMz EIM?wSEm cdv:cdv_xogizMz Iczkn/LXHeXC EIM LXHeXC/wSEm xogizMz Iczkn/EIM_wSEm-xogizMz!EIM.SBYLExN SBYLExN!xogizMz cYAsP ZmQnsE ZmQnsE.ctWe cYAsP cdv?wSEm,Iczkn Iczkn,xogizMz Iczkn VdYltE VdYltE;wSEm cYAsP cYAsP;cYAsP_SBYLExN.LXHeXC cdv.wSEm LXHeXC VdYltE EIM-SBYLExN WRMxHI-xogizMz wSEm KKLXxuvu sepqTIOS LXHeXC WRMxHI VdYltE:EIM EIM/SBYLExN cdv LXHeXC TYANt:WRMxHI_VdYltE-TYANt xogizMz LXHeXC xogizMz:cYAsP LXHeXC;LXHeXC wSEm_xogizMz/";
         List<String> expectedSequence1 = Arrays.asList("cyasp", "wsem", "iczkn");
         List<String> expectedSequence2 = Arrays.asList("cyasp", "wsem", "xogizmz");
         List<String> result = TopWords.top3(input);
 
         assertThat(result, anyOf(equalTo(expectedSequence1), equalTo(expectedSequence2)));
+    }
+
+    @Test
+    public void top3_TwoWordsSecondInPriorityList_ResultShouldIncludeBothOfThem() {
+        String input = "u'AZmXjYV MYg?bMEtGoSI QHJjWoU/bSM bSM QHJjWoU/YtfrbefP:ANHAPrG u'AZmXjYV?ANHAPrG/QHJjWoU:MYg dgPMMOe;MYg MYg MYg_bMEtGoSI dgPMMOe/YtfrbefP:MYg ANHAPrG YtfrbefP?bMEtGoSI bMEtGoSI QHJjWoU dgPMMOe bMEtGoSI.QHJjWoU;ANHAPrG u'AZmXjYV dgPMMOe,bMEtGoSI/YtfrbefP?MYg?dgPMMOe bMEtGoSI QHJjWoU dgPMMOe_QHJjWoU MYg,dgPMMOe.QHJjWoU;u'AZmXjYV-MYg bSM!dgPMMOe YtfrbefP YtfrbefP!MYg kNsn bSM:ANHAPrG dgPMMOe bMEtGoSI,YtfrbefP u'AZmXjYV:ANHAPrG bMEtGoSI;MYg MYg:kNsn YtfrbefP bSM/MYg kNsn-MYg YtfrbefP dgPMMOe_QHJjWoU!RVCps_QHJjWoU kNsn QHJjWoU!bMEtGoSI:QHJjWoU QHJjWoU QHJjWoU,kNsn QHJjWoU:bSM.YtfrbefP bMEtGoSI.dgPMMOe/bMEtGoSI!u'AZmXjYV!kNsn u'AZmXjYV,YtfrbefP u'AZmXjYV MYg u'AZmXjYV,bSM MYg_bMEtGoSI QHJjWoU YtfrbefP u'AZmXjYV bMEtGoSI dgPMMOe;dgPMMOe_bSM-dgPMMOe bMEtGoSI QHJjWoU YtfrbefP MYg;dgPMMOe.MYg/QHJjWoU ANHAPrG QHJjWoU QHJjWoU;bMEtGoSI kNsn u'AZmXjYV QHJjWoU dgPMMOe;dgPMMOe YtfrbefP/ANHAPrG ANHAPrG u'AZmXjYV dgPMMOe dgPMMOe/bMEtGoSI;YtfrbefP;kNsn,YtfrbefP MYg.bSM!ANHAPrG u'AZmXjYV!MYg.YtfrbefP u'AZmXjYV YtfrbefP!YtfrbefP bMEtGoSI QHJjWoU dgPMMOe YtfrbefP:bMEtGoSI_dgPMMOe bSM QHJjWoU!YtfrbefP-MYg bSM MYg:bMEtGoSI/ANHAPrG ANHAPrG?u'AZmXjYV bSM MYg;ANHAPrG YtfrbefP MYg!YtfrbefP kNsn bMEtGoSI-kNsn YtfrbefP u'AZmXjYV QHJjWoU,bMEtGoSI u'AZmXjYV:dgPMMOe-RVCps,dgPMMOe QHJjWoU u'AZmXjYV_MYg MYg u'AZmXjYV u'AZmXjYV bMEtGoSI;kNsn bMEtGoSI.dgPMMOe_YtfrbefP u'AZmXjYV kNsn dgPMMOe?u'AZmXjYV:MYg.ANHAPrG u'AZmXjYV,bSM bSM?ANHAPrG-bSM!dgPMMOe u'AZmXjYV MYg u'AZmXjYV?u'AZmXjYV dgPMMOe!kNsn_bMEtGoSI,u'AZmXjYV bMEtGoSI kNsn bSM QHJjWoU_bSM QHJjWoU bMEtGoSI?YtfrbefP?YtfrbefP;MYg?u'AZmXjYV.QHJjWoU dgPMMOe_";
+        List<String> expectedSequence1 = Arrays.asList("myg", "u'azmxjyv", "qhjjwou");
+        List<String> expectedSequence2 = Arrays.asList("myg", "qhjjwou", "u'azmxjyv");
+        List<String> expectedSequence3 = Arrays.asList("myg", "dgpmmoe", "qhjjwou");
+        List<String> expectedSequence4 = Arrays.asList("myg", "qhjjwou", "dgpmmoe");
+        List<String> expectedSequence5 = Arrays.asList("myg", "qhjjwou", "u'azmxjyv");
+        List<String> expectedSequence6 = Arrays.asList("myg", "u'azmxjyv", "qhjjwou");
+        List<String> result = TopWords.top3(input);
+
+        assertThat(result, anyOf(
+                equalTo(expectedSequence1),
+                equalTo(expectedSequence2),
+                equalTo(expectedSequence3),
+                equalTo(expectedSequence4),
+                equalTo(expectedSequence5),
+                equalTo(expectedSequence6)
+        ));
     }
 }

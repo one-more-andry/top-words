@@ -60,9 +60,9 @@ public class TopWordsTest
     }
 
     @Test
-    public void top3_FewApostrophesAtStartMiddleEnd_IgnoreMoreThanOneAtOnce() {
-        String input = "ab''c,  ab''c,  ab''c, ab', ''abc'', ''abc'', abc'', ''abc";
-        List<String> expected = Arrays.asList("ab'", "'c", "'abc'");
+    public void top3_FewApostrophesAtStartMiddleEnd_PartOfWord() {
+        String input = "ab''c'c,  ab''c'c, ab''c'c,  ab''c'c, ''abc'', ''abc'', ''abc'', abc'', abc'', ''abc";
+        List<String> expected = Arrays.asList("ab''c'c", "''abc''", "abc''");
 
         assertEquals("top3_ApostrophesAtStartMiddleEnd_PartOfWord", expected, TopWords.top3(input));
     }

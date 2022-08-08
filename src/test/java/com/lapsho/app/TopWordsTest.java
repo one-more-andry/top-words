@@ -61,8 +61,24 @@ public class TopWordsTest
 
     @Test
     public void top3_FewApostrophesAtStartMiddleEnd_PartOfWord() {
-        String input = "ab''c'c,  ab''c'c, ab''c'c,  ab''c'c, ''abc'', ''abc'', ''abc'', abc'', abc'', ''abc";
-        List<String> expected = Arrays.asList("ab''c'c", "''abc''", "abc''");
+        String input = "ab''c'c,  ab''c'c, ab''c'c,  ab''c'c, 'abc'', 'abc'', 'abc'', abc'', abc'', 'abc";
+        List<String> expected = Arrays.asList("ab''c'c", "'abc''", "abc''");
+
+        assertEquals("top3_ApostrophesAtStartMiddleEnd_PartOfWord", expected, TopWords.top3(input));
+    }
+
+    @Test
+    public void top3_FewApostrophesAtBeginning_IgnoreExceptOne() {
+        String input = "'''ab''c'c,  '''ab''c'c, '''ab''c'c,  '''ab''c'c, ''abc'', ''abc'', ''abc'', abc'', abc'', ''abc";
+        List<String> expected = Arrays.asList("'ab''c'c", "'abc''", "abc''");
+
+        assertEquals("top3_ApostrophesAtStartMiddleEnd_PartOfWord", expected, TopWords.top3(input));
+    }
+
+    @Test
+    public void top3_SingleApostrophe_NotPartOfWord() {
+        String input = "' ";
+        List<String> expected = Arrays.asList();
 
         assertEquals("top3_ApostrophesAtStartMiddleEnd_PartOfWord", expected, TopWords.top3(input));
     }
